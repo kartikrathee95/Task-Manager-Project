@@ -11,7 +11,7 @@ Copy code
 git clone https://github.com/kartikrathee95/Task-Manager-v.1.git
 Install dependencies:
 
-cd Task-Manager-v.1/task-manager
+cd Task-Manager-Project
 
 npm install
 
