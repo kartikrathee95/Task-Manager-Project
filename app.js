@@ -19,7 +19,7 @@ let tasks = [
     description: 'Task 2 explanation',
     completed: false,
     priority: 'medium',
-    createdAt: new Date().toISOString() // Add createdAt property
+    createdAt: new Date().toISOString() 
   },
   {
     id: 3,
@@ -27,7 +27,7 @@ let tasks = [
     description: 'Task 3 deep dive',
     completed: false,
     priority: 'high',
-    createdAt: new Date().toISOString() // Add createdAt property
+    createdAt: new Date().toISOString() 
   },
 ];
 
@@ -36,7 +36,7 @@ app.use(express.json());
 function validateTask(task) {
   return task.title && task.description && task.priority && task.completed !== undefined && typeof task.completed === 'boolean'; // Check completed is boolean
 }
-
+// get all tasks, "completed" task filter and sort filter through key = "createdAt"
 app.get('/tasks', (req, res) => {
   let filteredTasks = tasks;
 
@@ -50,7 +50,7 @@ app.get('/tasks', (req, res) => {
 
   res.json(filteredTasks);
 });
-
+// post new task
 app.post('/tasks', (req, res) => {
   const { title, description, completed, priority } = req.body;
   if (!validateTask(req.body)) {
@@ -61,7 +61,7 @@ app.post('/tasks', (req, res) => {
   tasks.push(newTask);
   res.status(201).json(newTask);
 });
-
+// update existing task
 app.put('/tasks/:id', (req, res) => {
   const id = parseInt(req.params.id);
   const taskIndex = tasks.findIndex(task => task.id === id);
@@ -77,7 +77,7 @@ app.put('/tasks/:id', (req, res) => {
   tasks[taskIndex] = { ...tasks[taskIndex], ...req.body, createdAt: tasks[taskIndex].createdAt }; // Preserve createdAt property
   res.json(tasks[taskIndex]);
 });
-
+// delete task
 app.delete('/tasks/:id', (req, res) => {
     const id = parseInt(req.params.id);
     const taskIndex = tasks.findIndex(task => task.id === id);
@@ -89,7 +89,7 @@ app.delete('/tasks/:id', (req, res) => {
     tasks = tasks.filter(task => task.id !== id);
     res.json({ message: 'Task deleted successfully' });
   });
-
+// reset existing tasks
 app.delete('/tasks/reset', (req, res) => {
   tasks = [
     {
@@ -98,7 +98,7 @@ app.delete('/tasks/reset', (req, res) => {
       description: 'Task 1 details',
       completed: false,
       priority: 'low',
-      createdAt: new Date().toISOString() // Add createdAt property
+      createdAt: new Date().toISOString() 
     },
     {
       id: 2,
@@ -106,7 +106,7 @@ app.delete('/tasks/reset', (req, res) => {
       description: 'Task 2 explanation',
       completed: false,
       priority: 'medium',
-      createdAt: new Date().toISOString() // Add createdAt property
+      createdAt: new Date().toISOString() 
     },
     {
       id: 3,
@@ -114,13 +114,13 @@ app.delete('/tasks/reset', (req, res) => {
       description: 'Task 3 deep dive',
       completed: false,
       priority: 'high',
-      createdAt: new Date().toISOString() // Add createdAt property
+      createdAt: new Date().toISOString()
     },
   ];
   taskIdCounter = 3;
   res.json({ message: 'Tasks reset successfully' });
 });
-
+// priority filter
 app.get('/tasks/priority/:level', (req, res) => {
   const level = req.params.level;
   const filteredTasks = tasks.filter(task => task.priority === level);
