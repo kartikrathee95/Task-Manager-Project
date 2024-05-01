@@ -36,6 +36,10 @@ app.use(express.json());
 function validateTask(task) {
   return task.title && task.description && task.priority && task.completed !== undefined && typeof task.completed === 'boolean'; // Check completed is boolean
 }
+// welcome page
+app.get('/', (req, res) => {
+    res.status(200).send('Hello World from Task Manager API');
+});
 // get all tasks, "completed" task filter and sort filter through key = "createdAt"
 app.get('/tasks', (req, res) => {
   let filteredTasks = tasks;
